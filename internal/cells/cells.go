@@ -93,7 +93,7 @@ func RunCell(rules Rules, self Cell, startChan chan bool, cells *[]Cell, results
 	}
 }
 
-func NextStep(cellCount int, startChan chan bool, cells *[]Cell, resultsChan chan Cell) []Cell {
+func NextStep(cellCount int, startChan chan bool, cells *[]Cell, resultsChan chan Cell) *[]Cell {
 	for i := 0; i < cellCount; i++ {
 		startChan <- true
 	}
@@ -105,5 +105,5 @@ func NextStep(cellCount int, startChan chan bool, cells *[]Cell, resultsChan cha
 		newCells[newCell.Id] = newCell
 	}
 
-	return newCells
+	return &newCells
 }
