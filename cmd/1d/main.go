@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	clib "github.com/MrNeocore/go-game-of-life/cells"
+	clib "github.com/MrNeocore/go-game-of-life/internal/cells"
 )
 
 const CELL_COUNT = 10
