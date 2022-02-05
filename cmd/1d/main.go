@@ -4,7 +4,8 @@ import (
 	"fmt"
 
 	game "github.com/MrNeocore/go-game-of-life/game/1d"
-	clib "github.com/MrNeocore/go-game-of-life/internal/cells"
+	"github.com/MrNeocore/go-game-of-life/rules"
+	"github.com/MrNeocore/go-game-of-life/state"
 )
 
 const CELL_COUNT = 10
@@ -13,9 +14,9 @@ const STEP_COUNT = 2
 func main() {
 	fmt.Println("Game of Life")
 
-	var rules = clib.Rules{
-		clib.Alive: {1},
-		clib.Dead:  {1},
+	var rules = rules.Rules{
+		state.Alive: {1},
+		state.Dead:  {1},
 	}
 
 	game.Run(rules, CELL_COUNT, STEP_COUNT)
