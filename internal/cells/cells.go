@@ -5,12 +5,9 @@ import (
 	"time"
 )
 
-var rules = map[State][]int{
-	Alive: {1},
-	Dead:  {1},
-}
-
 type State bool
+
+type Rules map[State][]int
 
 const (
 	Alive State = true
@@ -30,7 +27,7 @@ type Cell struct {
 	State State
 }
 
-func newState(currentState State, numNeighbours int) State {
+func newState(rules Rules, currentState State, numNeighbours int) State {
 	for _, neighbours := range rules[currentState] {
 		if numNeighbours == neighbours {
 			return Alive
@@ -83,13 +80,13 @@ func getNeighbours(self Cell, cells *[]Cell) []Cell {
 	return []Cell{leftCell, rightCell}
 }
 
-func RunCell(self Cell, startChan chan bool, cells *[]Cell, resultsChan chan Cell) {
+func RunCell(rules Rules, self Cell, startChan chan bool, cells *[]Cell, resultsChan chan Cell) {
 	for {
 		<-startChan
 
 		neighbours := getNeighbours(self, cells)
 		numNeighbours := CountAliveCells(neighbours)
-		state := newState(self.State, numNeighbours)
+		state := newState(rules, self.State, numNeighbours)
 
 		resultsChan <- Cell{Id: self.Id, State: state}
 	}
