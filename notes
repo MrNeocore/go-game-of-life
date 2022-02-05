@@ -1,0 +1,18 @@
+Go Game of Life
+1. Init N cells at random
+2. Create
+    a. start channel
+    b. results channel
+3. Start N goroutines with start, *cells and results
+    a. Wait for start signal
+    b. Read neighbours from cells
+    c. Compute new state
+    d. Send new state to results
+    e. Loop a.
+4. Start step
+    a. Send start signals
+    b. Create new cells from results channel
+    c. Replace cells with new cells
+    d. Display new cells
+    e. Loop a.
+5. Done :)
