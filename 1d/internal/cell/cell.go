@@ -14,9 +14,9 @@ type Cell struct {
 	State state.State
 }
 
-func (cell Cell) getNewState(rules rules.Rules, numNeighbours int) state.State {
-	for _, neighbours := range rules[cell.State] {
-		if numNeighbours == neighbours {
+func (cell Cell) getNewState(rules rules.Rules, numNeighbors int) state.State {
+	for _, neighbors := range rules[cell.State] {
+		if numNeighbors == neighbors {
 			return state.Alive
 		}
 	}
@@ -24,7 +24,7 @@ func (cell Cell) getNewState(rules rules.Rules, numNeighbours int) state.State {
 	return state.Dead
 }
 
-func (cell Cell) getNeighbours(cells *[]Cell) []Cell {
+func (cell Cell) getneighbors(cells *[]Cell) []Cell {
 	leftId := cell.Id - 1
 
 	if leftId == -1 {
@@ -47,9 +47,9 @@ func (cell Cell) RunCell(rules rules.Rules, startChan chan bool, cells *[]Cell, 
 	for {
 		<-startChan
 
-		neighbours := cell.getNeighbours(cells)
-		numNeighbours := countAliveCells(&neighbours)
-		state := cell.getNewState(rules, numNeighbours)
+		neighbors := cell.getneighbors(cells)
+		numneighbors := countAliveCells(&neighbors)
+		state := cell.getNewState(rules, numneighbors)
 
 		resultsChan <- Cell{Id: cell.Id, State: state}
 	}

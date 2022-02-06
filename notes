@@ -5,7 +5,7 @@ Go Game of Life
     b. results channel
 3. Start N goroutines with start, *cells and results
     a. Wait for start signal
-    b. Read neighbours from cells
+    b. Read neighbors from cells
     c. Compute new state
     d. Send new state to results
     e. Loop a.
