@@ -24,7 +24,7 @@ func (cell Cell) getNewState(rules rules.Rules, numNeighbors int) state.State {
 	return state.Dead
 }
 
-func (cell Cell) getneighbors(cells *[]Cell) []Cell {
+func (cell Cell) getNeighbors(cells *[]Cell) []Cell {
 	leftId := cell.Id - 1
 
 	if leftId == -1 {
@@ -47,7 +47,7 @@ func (cell Cell) RunCell(rules rules.Rules, startChan chan bool, cells *[]Cell, 
 	for {
 		<-startChan
 
-		neighbors := cell.getneighbors(cells)
+		neighbors := cell.getNeighbors(cells)
 		numneighbors := countAliveCells(&neighbors)
 		state := cell.getNewState(rules, numneighbors)
 
