@@ -3,7 +3,7 @@ package game
 import (
 	"fmt"
 
-	clib "github.com/MrNeocore/go-game-of-life/internal/cell"
+	clib "github.com/MrNeocore/go-game-of-life/1d/internal/cell"
 	"github.com/MrNeocore/go-game-of-life/rules"
 )
 

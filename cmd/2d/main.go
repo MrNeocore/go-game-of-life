@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 
-	game "github.com/MrNeocore/go-game-of-life/1d/game"
+	game "github.com/MrNeocore/go-game-of-life/2d/game"
 	"github.com/MrNeocore/go-game-of-life/rules"
 	"github.com/MrNeocore/go-game-of-life/state"
 )
