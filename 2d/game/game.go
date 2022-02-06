@@ -3,33 +3,37 @@ package game
 import (
 	"fmt"
 
-	clib "github.com/MrNeocore/go-game-of-life/internal/1d/cell"
+	clib "github.com/MrNeocore/go-game-of-life/2d/internal/cell"
+	"github.com/MrNeocore/go-game-of-life/dims"
 	"github.com/MrNeocore/go-game-of-life/rules"
 )
 
-func Run(rules rules.Rules, cellCount int, stepCount int) {
+func Run(rules rules.Rules, dims dims.Dims, stepCount int) {
 	startChan := make(chan bool)
 	resultsChan := make(chan clib.Cell)
 
-	cells := clib.MakeCells(cellCount)
+	cells := clib.InitCells(dims)
 
-	startCells(rules, startChan, &cells, resultsChan)
+	startCells(rules, dims, startChan, &cells, resultsChan)
 
-	runCellSteps(stepCount, startChan, &cells, resultsChan)
+	runCellSteps(stepCount, dims, startChan, &cells, resultsChan)
 }
 
-func startCells(rules rules.Rules, startChan chan bool, cells *[]clib.Cell, resultsChan chan clib.Cell) {
-	fmt.Printf("Starting cells: %v\n", cells)
+func startCells(rules rules.Rules, dims dims.Dims, startChan chan bool, cells *[][]clib.Cell, resultsChan chan clib.Cell) {
+	fmt.Println("=== Step 0 ===")
+	clib.PrintCells(cells, dims)
 
-	for i := 0; i < len(*cells); i++ {
-		go (*cells)[i].RunCell(rules, startChan, cells, resultsChan)
+	for x := 0; x < dims.X; x++ {
+		for y := 0; y < dims.Y; y++ {
+			go (*cells)[x][y].RunCell(rules, startChan, cells, resultsChan, dims)
+		}
 	}
 }
 
-func runCellSteps(stepCount int, startChan chan bool, cells *[]clib.Cell, resultsChan chan clib.Cell) {
+func runCellSteps(stepCount int, dims dims.Dims, startChan chan bool, cells *[][]clib.Cell, resultsChan chan clib.Cell) {
 	for i := 1; i < stepCount+1; i++ {
-		fmt.Printf("\tStep %d: ", i)
-		cells = clib.NextStep(startChan, cells, resultsChan)
-		fmt.Println(cells)
+		fmt.Printf("\n=== Step %d ===\n", i)
+		cells = clib.NextStep(dims, startChan, cells, resultsChan)
+		clib.PrintCells(cells, dims)
 	}
 }

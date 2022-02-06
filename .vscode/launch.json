@@ -5,16 +5,28 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Package",
+            "name": "1D",
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${fileDirname}",
+            "program": "${workspaceFolder}/cmd/1d/main.go",
             "args": [
                 "-cellCount",
                 "5",
                 "-stepCount",
                 "5"
+            ]
+        },
+        {
+            "name": "2D",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/cmd/2d/main.go",
+            "args": [
+                "-X", "10",
+                "-Y", "10",
+                "-steps", "3"
             ]
         }
     ]

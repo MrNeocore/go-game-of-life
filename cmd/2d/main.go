@@ -4,31 +4,33 @@ import (
 	"flag"
 	"fmt"
 
-	game "github.com/MrNeocore/go-game-of-life/2d/game"
+	"github.com/MrNeocore/go-game-of-life/2d/game"
+	_dims "github.com/MrNeocore/go-game-of-life/dims"
 	"github.com/MrNeocore/go-game-of-life/rules"
 	"github.com/MrNeocore/go-game-of-life/state"
 )
 
-func parseCli() (cellCount int, stepCount int) {
-	cellCountPtr := flag.Int("cellCount", 10, "Number of simulated cells")
-	stepCountPtr := flag.Int("stepCount", 3, "Number of simulation steps")
+func parseCli() (dims _dims.Dims, stepCount int) {
+	cellCountXPtr := flag.Int("X", 10, "Number of simulated cells (X)")
+	cellCountYPtr := flag.Int("Y", 10, "Number of simulated cells (Y)")
+	stepCountPtr := flag.Int("steps", 3, "Number of simulation steps")
 
 	flag.Parse()
 
-	return *cellCountPtr, *stepCountPtr
+	return _dims.Dims{X: *cellCountXPtr, Y: *cellCountYPtr}, *stepCountPtr
 }
 
 func main() {
-	cellCount, stepCount := parseCli()
+	dims, stepCount := parseCli()
 
-	fmt.Println("Game of Life")
+	fmt.Printf("Game of Life\n\n")
 
 	var rules = rules.Rules{
-		state.Alive: {1},
-		state.Dead:  {1},
+		state.Alive: {2, 3},
+		state.Dead:  {2},
 	}
 
-	game.Run(rules, cellCount, stepCount)
+	game.Run(rules, dims, stepCount)
 
-	fmt.Println("Done")
+	fmt.Printf("\nDone\n")
 }
