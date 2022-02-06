@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 
 	game "github.com/MrNeocore/go-game-of-life/game/1d"
@@ -8,10 +9,18 @@ import (
 	"github.com/MrNeocore/go-game-of-life/state"
 )
 
-const CELL_COUNT = 10
-const STEP_COUNT = 2
+func parseCli() (cellCount int, stepCount int) {
+	cellCountPtr := flag.Int("cellCount", 10, "Number of simulated cells")
+	stepCountPtr := flag.Int("stepCount", 3, "Number of simulation steps")
+
+	flag.Parse()
+
+	return *cellCountPtr, *stepCountPtr
+}
 
 func main() {
+	cellCount, stepCount := parseCli()
+
 	fmt.Println("Game of Life")
 
 	var rules = rules.Rules{
@@ -19,7 +28,7 @@ func main() {
 		state.Dead:  {1},
 	}
 
-	game.Run(rules, CELL_COUNT, STEP_COUNT)
+	game.Run(rules, cellCount, stepCount)
 
 	fmt.Println("Done")
 }
