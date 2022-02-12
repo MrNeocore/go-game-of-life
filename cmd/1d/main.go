@@ -21,7 +21,7 @@ func parseCli() (cellCount int, stepCount int) {
 func main() {
 	cellCount, stepCount := parseCli()
 
-	fmt.Println("Game of Life")
+	fmt.Printf("Game of Life\n\n")
 
 	var rules = rules.Rules{
 		state.Alive: {1},
@@ -30,5 +30,5 @@ func main() {
 
 	game1d.Run(rules, cellCount, stepCount)
 
-	fmt.Println("Done")
+	fmt.Printf("\nDone\n")
 }

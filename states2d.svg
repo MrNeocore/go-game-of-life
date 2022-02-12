@@ -1,0 +1,18 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" style="background-color:white" viewBox="46.5 219.5 480.43 100">
+    <ellipse stroke="black" stroke-width="1" fill="none" cx="237.5" cy="267.5" rx="30" ry="30" />
+    <text x="212.5" y="273.5" font-family="Times New Roman" font-size="20">Alive</text>
+    <ellipse stroke="black" stroke-width="1" fill="none" cx="400.5" cy="267.5" rx="30" ry="30" />
+    <text x="374.5" y="273.5" font-family="Times New Roman" font-size="20">Dead</text>
+    <path stroke="black" stroke-width="1" fill="none" d="M 373.977,281.407 A 147.707,147.707 0 0 1 264.023,281.407" />
+    <polygon fill="black" stroke-width="1" points="373.977,281.407 364.69,279.744 368.412,289.026" />
+    <text x="264.5" y="313.5" font-family="Times New Roman" font-size="20">N != [2, 3]</text>
+    <path stroke="black" stroke-width="1" fill="none" d="M 265.201,256.075 A 178.052,178.052 0 0 1 372.799,256.075" />
+    <polygon fill="black" stroke-width="1" points="265.201,256.075 274.338,258.424 271.316,248.891" />
+    <text x="289.5" y="238.5" font-family="Times New Roman" font-size="20">N = 2</text>
+    <path stroke="black" stroke-width="1" fill="none" d="M 427.297,254.275 A 22.5,22.5 0 1 1 427.297,280.725" />
+    <text x="473.5" y="273.5" font-family="Times New Roman" font-size="20">N != 2</text>
+    <polygon fill="black" stroke-width="1" points="427.297,280.725 430.83,289.473 436.708,281.382" />
+    <path stroke="black" stroke-width="1" fill="none" d="M 210.703,280.725 A 22.5,22.5 0 1 1 210.703,254.275" />
+    <text x="47.5" y="273.5" font-family="Times New Roman" font-size="20">N == [2, 3]</text>
+    <polygon fill="black" stroke-width="1" points="210.703,254.275 207.17,245.527 201.292,253.618" />
+</svg>
