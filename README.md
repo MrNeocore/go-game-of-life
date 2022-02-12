@@ -9,7 +9,7 @@
 This "unofficial" version of GoF was implemented as a first step in this project.
 
 ### Rules
-neighbors (`N`) of a cell are their immediate neighbors (i.e. left and right cells).
+Neighbors (`N`) of a cell are their immediate neighbors (i.e. left and right cells).
 
 Edge cells' neighbors include the "wrapped around" cell on its left or right.
 
@@ -44,7 +44,7 @@ Done
 ## 2D
 
 ### Rules
-neighbors (`N`) of a cell are their immediate neighbors (8-ways).
+Neighbors (`N`) of a cell are their immediate neighbors (8-ways).
 
 Contrary to the 1D version, neighbors don't include the "wrapped around" cells.
 
