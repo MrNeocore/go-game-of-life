@@ -9,9 +9,9 @@
 This "unofficial" version of GoF was implemented as a first step in this project.
 
 ### Rules
-Neighbours (`N`) of a cell are their immediate neighbours (i.e. left and right cells).
+neighbors (`N`) of a cell are their immediate neighbors (i.e. left and right cells).
 
-Edge cells' neihbours include the "wrapped around" cell on its left or right.
+Edge cells' neighbors include the "wrapped around" cell on its left or right.
 
 ### State diagram
 <img src="states1d.svg" width="400">
@@ -44,9 +44,9 @@ Done
 ## 2D
 
 ### Rules
-Neighbours (`N`) of a cell are their immediate neighbours (8-ways).
+neighbors (`N`) of a cell are their immediate neighbors (8-ways).
 
-Contrary to the 1D version, neihbours don't include the "wrapped around" cells.
+Contrary to the 1D version, neighbors don't include the "wrapped around" cells.
 
 ### State diagram
 <img src="states2d.svg" width="400">
