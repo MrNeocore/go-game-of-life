@@ -18,12 +18,13 @@ Edge cells' neihbours include the "wrapped around" cell on its left or right.
 
 ### Run
 ``` bash
-go run cmd/1d/main.go --cellCount 10 --stepCount 3
+go run cmd/1d/main.go -cellCount 10 -stepCount 3
 ```
 
 ### Output example
 ```
 Game of Life
+
 === Step 0 ===
 O X O O X O X O X O
 
@@ -35,5 +36,58 @@ O X O O X X X X X O
 
 === Step 3 ===
 O X O O X X X X X O
+
 Done
 ```
+
+
+## 2D
+
+### Rules
+Neighbours (`N`) of a cell are their immediate neighbours (8-ways).
+
+Contrary to the 1D version, neihbours don't include the "wrapped around" cells.
+
+### State diagram
+<img src="states2d.svg" width="400">
+
+### Run
+``` bash
+go run cmd/2d/main.go -X 3 -Y 3 -steps 3
+```
+
+### Output example
+```
+Game of Life
+
+=== Step 0 ===
+O X X X O
+X O O X O
+O X X X O
+O O X X O
+X O X X O
+
+=== Step 1 ===
+X X O X X
+X O X X O
+O X X X O
+O O O X O
+X O O O X
+
+=== Step 2 ===
+X X O X X
+X O X X O
+O X X X O
+O O O X O
+X O O O X
+
+=== Step 3 ===
+X X O X X
+X O X X O
+O X X X O
+O O O X O
+X O O O X
+
+Done
+```
+
