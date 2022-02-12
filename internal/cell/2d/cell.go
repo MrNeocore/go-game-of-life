@@ -20,7 +20,7 @@ type Cell struct {
 	State state.State
 }
 
-func (cell Cell) RunCell(cells Cells) {
+func (cell Cell) RunCell(cells Cells2D) {
 	for {
 		<-cells.startChan
 
@@ -42,7 +42,7 @@ func (cell Cell) getNewState(rules rules.Rules, numNeighbors int) state.State {
 	return state.Dead
 }
 
-func (cell Cell) getNeighbors(cells Cells) []Cell {
+func (cell Cell) getNeighbors(cells Cells2D) []Cell {
 	locs := []Loc{
 		{X: cell.Loc.X - 1, Y: cell.Loc.Y - 1}, // topLeft
 		{X: cell.Loc.X, Y: cell.Loc.Y - 1},     // top
@@ -65,7 +65,7 @@ func (cell Cell) getNeighbors(cells Cells) []Cell {
 	return neighbors
 }
 
-type Cells struct {
+type Cells2D struct {
 	Rules       rules.Rules
 	Dims        dims.Dims
 	Cells       *[][]Cell
@@ -73,8 +73,8 @@ type Cells struct {
 	resultsChan chan Cell
 }
 
-func NewCells(rules rules.Rules, dims dims.Dims, startChan chan bool, resultsChan chan Cell) Cells {
-	cells := Cells{
+func NewCells(rules rules.Rules, dims dims.Dims, startChan chan bool, resultsChan chan Cell) Cells2D {
+	cells := Cells2D{
 		Rules:       rules,
 		Dims:        dims,
 		Cells:       makeCells(dims),
@@ -96,7 +96,7 @@ func makeCells(dims dims.Dims) *[][]Cell {
 	return &_cells
 }
 
-func (cells Cells) randomizeCells() {
+func (cells Cells2D) randomizeCells() {
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	for x := 0; x < cells.Dims.X; x++ {
@@ -106,7 +106,7 @@ func (cells Cells) randomizeCells() {
 	}
 }
 
-func (cells Cells) String() string {
+func (cells Cells2D) String() string {
 	out := ""
 
 	for x := 0; x < cells.Dims.X; x++ {
@@ -124,7 +124,7 @@ func (cells Cells) String() string {
 	return out
 }
 
-func (cells Cells) Start() {
+func (cells Cells2D) Start() {
 	fmt.Println("=== Step 0 ===")
 	fmt.Print(cells)
 
@@ -135,7 +135,7 @@ func (cells Cells) Start() {
 	}
 }
 
-func (cells Cells) Run(stepCount int) {
+func (cells Cells2D) Run(stepCount int) {
 	for i := 1; i < stepCount+1; i++ {
 		fmt.Printf("\n=== Step %d ===\n", i)
 		cells = cells.nextStep()
@@ -143,12 +143,12 @@ func (cells Cells) Run(stepCount int) {
 	}
 }
 
-func (cells Cells) nextStep() Cells {
+func (cells Cells2D) nextStep() Cells2D {
 	for i := 0; i < cells.Dims.X*cells.Dims.Y; i++ {
 		cells.startChan <- true
 	}
 
-	newCells := Cells{
+	newCells := Cells2D{
 		Rules:       cells.Rules,
 		Dims:        cells.Dims,
 		Cells:       makeCells(cells.Dims),

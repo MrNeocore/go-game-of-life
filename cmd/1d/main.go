@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 
-	game "github.com/MrNeocore/go-game-of-life/1d/game"
+	game1d "github.com/MrNeocore/go-game-of-life/game/1d"
 	"github.com/MrNeocore/go-game-of-life/rules"
 	"github.com/MrNeocore/go-game-of-life/state"
 )
@@ -28,7 +28,7 @@ func main() {
 		state.Dead:  {1},
 	}
 
-	game.Run(rules, cellCount, stepCount)
+	game1d.Run(rules, cellCount, stepCount)
 
 	fmt.Println("Done")
 }
