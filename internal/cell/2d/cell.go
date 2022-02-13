@@ -3,11 +3,15 @@ package cell
 import (
 	"fmt"
 	"math/rand"
+	"os"
 	"time"
+	"unicode/utf8"
 
 	"github.com/MrNeocore/go-game-of-life/dims"
 	"github.com/MrNeocore/go-game-of-life/rules"
 	"github.com/MrNeocore/go-game-of-life/state"
+	"github.com/gdamore/tcell"
+	"github.com/gdamore/tcell/encoding"
 )
 
 type Loc struct {
@@ -124,6 +128,37 @@ func (cells Cells2D) String() string {
 	return out
 }
 
+func emitCellState(s tcell.Screen, x, y int, style tcell.Style, r rune) {
+	s.SetContent(x, y, r, nil, style)
+}
+
+func (cells Cells2D) Display(s tcell.Screen) {
+	s.Clear()
+	green := tcell.StyleDefault.Foreground(tcell.ColorCadetBlue).Background(tcell.ColorGreen)
+	red := tcell.StyleDefault.Foreground(tcell.ColorCadetBlue).Background(tcell.ColorRed)
+
+	var c string
+	var style tcell.Style
+
+	for x := 0; x < cells.Dims.X; x++ {
+		for y := 0; y < cells.Dims.Y; y++ {
+			cellState := (*cells.Cells)[x][y].State
+
+			if cellState == state.Alive {
+				style = green
+				c = "O"
+			} else {
+				style = red
+				c = "X"
+			}
+			r, _ := utf8.DecodeRuneInString(c)
+			emitCellState(s, x, y, style, r)
+		}
+	}
+
+	s.Show()
+}
+
 func (cells *Cells2D) Start() {
 	fmt.Println("=== Step 0 ===")
 	fmt.Print(cells)
@@ -135,11 +170,34 @@ func (cells *Cells2D) Start() {
 	}
 }
 
+func getScreen() tcell.Screen {
+	encoding.Register()
+
+	s, e := tcell.NewScreen()
+	if e != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", e)
+		os.Exit(1)
+	}
+	if e := s.Init(); e != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", e)
+		os.Exit(1)
+	}
+
+	defStyle := tcell.StyleDefault.
+		Background(tcell.ColorBlack).
+		Foreground(tcell.ColorWhite)
+	s.SetStyle(defStyle)
+
+	return s
+}
+
 func (cells *Cells2D) Run(stepCount int) {
+	s := getScreen()
+
 	for i := 1; i < stepCount+1; i++ {
-		fmt.Printf("\n=== Step %d ===\n", i)
+		time.Sleep(time.Duration(500) * time.Millisecond)
 		cells.nextStep()
-		fmt.Print(cells)
+		cells.Display(s)
 	}
 }
 
