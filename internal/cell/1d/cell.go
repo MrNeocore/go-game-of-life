@@ -14,7 +14,7 @@ type Cell struct {
 	State state.State
 }
 
-func (cell Cell) RunCell(cells Cells1D) {
+func (cell Cell) RunCell(cells *Cells1D) {
 	for {
 		<-cells.startChan
 
@@ -36,7 +36,7 @@ func (cell Cell) getNewState(rules rules.Rules, numNeighbors int) state.State {
 	return state.Dead
 }
 
-func (cell Cell) getNeighbors(cells Cells1D) []Cell {
+func (cell Cell) getNeighbors(cells *Cells1D) []Cell {
 	leftId := cell.Id - 1
 
 	if leftId == -1 {
@@ -107,7 +107,7 @@ func (cells Cells1D) String() string {
 	return out
 }
 
-func (cells Cells1D) Start() {
+func (cells *Cells1D) Start() {
 	fmt.Println("=== Step 0 ===")
 	fmt.Print(cells)
 
@@ -116,33 +116,28 @@ func (cells Cells1D) Start() {
 	}
 }
 
-func (cells Cells1D) Run(stepCount int) {
+func (cells *Cells1D) Run(stepCount int) {
 	for i := 1; i < stepCount+1; i++ {
 		fmt.Printf("\n=== Step %d ===\n", i)
-		cells = cells.nextStep()
+		cells.nextStep()
 		fmt.Print(cells)
 	}
 }
 
-func (cells Cells1D) nextStep() Cells1D {
+func (cells *Cells1D) nextStep() {
 	for i := 0; i < cells.CellCount; i++ {
 		cells.startChan <- true
 	}
 
-	newCells := Cells1D{
-		Rules:       cells.Rules,
-		CellCount:   cells.CellCount,
-		Cells:       makeCells(cells.CellCount),
-		startChan:   cells.startChan,
-		resultsChan: cells.resultsChan,
-	}
+	newCells := makeCells(cells.CellCount)
 
 	for i := 0; i < cells.CellCount; i++ {
 		newCell := <-cells.resultsChan
-		(*newCells.Cells)[newCell.Id] = newCell
+		(*newCells)[newCell.Id] = newCell
 	}
 
-	return newCells
+	// Assign only after every Cell / goroutine has finished reading current states & produced its new state
+	cells.Cells = newCells
 }
 
 func countAliveCells(cells *[]Cell) int {
