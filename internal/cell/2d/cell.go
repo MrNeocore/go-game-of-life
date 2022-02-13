@@ -87,10 +87,10 @@ func NewCells(rules rules.Rules, dims dims.Dims, startChan chan bool, resultsCha
 }
 
 func makeCells(dims dims.Dims) *[][]Cell {
-	_cells := make([][]Cell, dims.Y)
+	_cells := make([][]Cell, dims.X)
 
 	for i := range _cells {
-		_cells[i] = make([]Cell, dims.X)
+		_cells[i] = make([]Cell, dims.Y)
 	}
 
 	return &_cells
